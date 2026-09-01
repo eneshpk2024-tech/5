@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Birthday Surprise 🎂</title>
+
+
+<style>
+
+/* =========================================================
+   BASIC SETTINGS
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
+
+body {
+    background: white;
+}
+
+
+/* =========================================================
+   PAGE 1
+========================================================= */
+
+#page1 {
+
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    background: white;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-direction: column;
+}
+
+
+#question {
+
+    position: absolute;
+
+    top: 37%;
+
+    width: 100%;
+
+    padding: 0 15px;
+
+    text-align: center;
+
+    font-size:
+        clamp(26px, 7vw, 44px);
+
+    font-weight: 700;
+
+    color: #111;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   PAGE 1 BUTTONS
+========================================================= */
+
+#buttonArea {
+
+    position: absolute;
+
+    top: 48%;
+
+    width: 100%;
+
+    height: 70px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+button {
+
+    border: none;
+
+    min-width: 100px;
+
+    min-height: 50px;
+
+    padding: 12px 28px;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+#yesButton {
+
+    background: #222;
+
+    color: white;
+
+    position: relative;
+
+    z-index: 5;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+#yesButton:active {
+
+    transform: scale(0.95);
+}
+
+
+#noButton {
+
+    background: #eeeeee;
+
+    color: #111;
+
+    position: relative;
+
+    z-index: 10;
+
+    transition:
+        left 0.25s ease,
+        top 0.25s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================================
+   PAGE 2
+========================================================= */
+
+#page2 {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    background: rgb(255, 255, 255);
+
+    /*
+       3 second smooth transition.
+    */
+
+    transition:
+        background-color 3s ease;
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   BALLOON CONTAINER
+========================================================= */
+
+#balloonContainer {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   BALLOONS
+========================================================= */
+
+.balloon {
+
+    position: absolute;
+
+    bottom: -120px;
+
+    width: 44px;
+
+    height: 58px;
+
+    border-radius:
+        50% 50% 48% 48%;
+
+    opacity: 0;
+
+    animation:
+        balloonFly
+        var(--duration)
+        ease-in-out
+        var(--delay)
+        forwards;
+}
+
+
+/* Balloon knot */
+
+.balloon::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: -7px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-left:
+        6px solid transparent;
+
+    border-right:
+        6px solid transparent;
+
+    border-top:
+        10px solid currentColor;
+}
+
+
+/* Balloon string */
+
+.balloon::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 100%;
+
+    left: 50%;
+
+    width: 1px;
+
+    height: 90px;
+
+    background:
+        rgba(70,70,70,0.4);
+
+    transform:
+        translateX(-50%);
+}
+
+
+/* =========================================================
+   BALLOON MOVEMENT
+
+   They rise and then completely disappear above
+   the screen.
+========================================================= */
+
+@keyframes balloonFly {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(0)
+            rotate(-6deg);
+    }
+
+    8% {
+
+        opacity: 1;
+    }
+
+    35% {
+
+        transform:
+            translateY(-35vh)
+            rotate(7deg);
+    }
+
+    65% {
+
+        transform:
+            translateY(-70vh)
+            rotate(-6deg);
+    }
+
+    88% {
+
+        opacity: 1;
+
+        transform:
+            translateY(-100vh)
+            rotate(5deg);
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translateY(-130vh)
+            rotate(-5deg);
+    }
+}
+
+
+/* =========================================================
+   BIRTHDAY CONTENT
+========================================================= */
+
+#birthdayContent {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 5;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   MAIN HEADING
+   TOP OF SCREEN
+========================================================= */
+
+#mainHeading {
+
+    position: absolute;
+
+    top: 10%;
+
+    left: 50%;
+
+    width: 95%;
+
+    transform:
+        translateX(-50%)
+        translateY(-25px)
+        scale(0.95);
+
+    text-align: center;
+
+    color: #a61b55;
+
+    font-size:
+        clamp(30px, 8vw, 58px);
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 3px 12px
+        rgba(166,27,85,0.18);
+
+    opacity: 0;
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+}
+
+
+/* =========================================================
+   MESSAGES
+   CENTER OF SCREEN
+========================================================= */
+
+#messages {
+
+    position: absolute;
+
+    top: 36%;
+
+    left: 50%;
+
+    width: 90%;
+
+    max-width: 750px;
+
+    transform:
+        translateX(-50%);
+
+    text-align: center;
+
+    color: #63213d;
+
+    font-size:
+        clamp(16px, 4.3vw, 23px);
+
+    line-height: 1.5;
+
+    font-weight: 500;
+}
+
+
+.message {
+
+    margin-bottom: 18px;
+
+    opacity: 0;
+
+    transform:
+        translateY(20px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+
+.message.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.last-message {
+
+    color: #a61b55;
+
+    font-weight: 700;
+
+    font-size:
+        clamp(19px, 5vw, 28px);
+}
+
+
+/* =========================================================
+   CAKE AREA
+   LOWER CENTER
+========================================================= */
+
+#cakeArea {
+
+    position: absolute;
+
+    bottom: 7%;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(40px);
+
+    text-align: center;
+
+    opacity: 0;
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+
+    z-index: 8;
+}
+
+
+#cakeArea.show {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+.cake {
+
+    position: relative;
+
+    width: 150px;
+
+    height: 85px;
+
+    margin:
+        0 auto 12px;
+}
+
+
+/* Cake bottom */
+
+.cake-bottom {
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 150px;
+
+    height: 48px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #f5a6c8,
+            #df6f9f
+        );
+
+    border-radius:
+        8px 8px 15px 15px;
+
+    box-shadow:
+        0 6px 15px
+        rgba(120,40,80,0.2);
+}
+
+
+/* Cake top */
+
+.cake-top {
+
+    position: absolute;
+
+    top: 18px;
+
+    left: 0;
+
+    width: 150px;
+
+    height: 35px;
+
+    background:
+        #ffd9e8;
+
+    border-radius:
+        50%;
+
+    z-index: 2;
+}
+
+
+/* Cream */
+
+.cream {
+
+    position: absolute;
+
+    top: 29px;
+
+    left: 8px;
+
+    width: 134px;
+
+    height: 20px;
+
+    background:
+        white;
+
+    border-radius:
+        50%;
+
+    z-index: 3;
+}
+
+
+/* =========================================================
+   CANDLES
+========================================================= */
+
+.candle {
+
+    position: absolute;
+
+    top: -5px;
+
+    width: 9px;
+
+    height: 28px;
+
+    background:
+        #ffffff;
+
+    border-radius: 3px;
+
+    z-index: 6;
+}
+
+
+.candle1 {
+    left: 42px;
+}
+
+.candle2 {
+    left: 70px;
+}
+
+.candle3 {
+    left: 98px;
+}
+
+
+/* Flames */
+
+.flame {
+
+    position: absolute;
+
+    width: 13px;
+
+    height: 19px;
+
+    top: -19px;
+
+    left: -2px;
+
+    background:
+        #ffb300;
+
+    border-radius:
+        50% 50% 50% 50%;
+
+    transform:
+        rotate(45deg);
+
+    animation:
+        flameFlicker
+        0.7s
+        infinite
+        alternate;
+}
+
+
+.flame::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+
+    height: 11px;
+
+    left: 3px;
+
+    top: 4px;
+
+    background:
+        #fff4a3;
+
+    border-radius:
+        50%;
+}
+
+
+@keyframes flameFlicker {
+
+    0% {
+
+        transform:
+            rotate(40deg)
+            scale(0.9);
+    }
+
+    100% {
+
+        transform:
+            rotate(50deg)
+            scale(1.1);
+    }
+}
+
+
+/* =========================================================
+   BLOW IN + TIMER
+========================================================= */
+
+#blowText {
+
+    font-size:
+        clamp(20px, 5vw, 27px);
+
+    font-weight: 700;
+
+    color: #a61b55;
+
+    margin-bottom: 3px;
+}
+
+
+#countdown {
+
+    font-size:
+        clamp(28px, 8vw, 45px);
+
+    font-weight: 800;
+
+    color: #63213d;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   FIREWORKS
+========================================================= */
+
+#fireworks {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    z-index: 100;
+
+    display: none;
+
+    overflow: hidden;
+}
+
+
+.fireworkParticle {
+
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #258cff;
+
+    box-shadow:
+        0 0 8px #258cff,
+        0 0 18px #258cff;
+
+    animation:
+        explode 1.8s ease-out forwards;
+}
+
+
+@keyframes explode {
+
+    0% {
+
+        opacity: 1;
+
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate(
+                var(--dx),
+                var(--dy)
+            )
+            scale(0.15);
+    }
+}
+
+
+/* Launch trails */
+
+.rocket {
+
+    position: absolute;
+
+    width: 4px;
+
+    height: 18px;
+
+    background:
+        #258cff;
+
+    box-shadow:
+        0 0 8px #258cff,
+        0 0 15px #258cff;
+
+    border-radius: 5px;
+
+    animation:
+        rocketLaunch 1.5s
+        ease-in forwards;
+}
+
+
+@keyframes rocketLaunch {
+
+    0% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(-65vh);
+    }
+}
+
+
+/* =========================================================
+   PAGE 3
+========================================================= */
+
+#page3 {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    background:
+        white;
+
+    z-index: 200;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+#page3Text {
+
+    font-size:
+        clamp(28px, 7vw, 50px);
+
+    color: #a61b55;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    #mainHeading {
+
+        top: 8%;
+    }
+
+    #messages {
+
+        top: 34%;
+    }
+
+    #cakeArea {
+
+        bottom: 5%;
+    }
+
+    .cake {
+
+        transform:
+            scale(0.9);
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     PAGE 1
+======================================================= -->
+
+<div id="page1">
+
+
+    <h1 id="question">
+        Are you the Birthday Girl 🎂
+    </h1>
+
+
+    <div id="buttonArea">
+
+
+        <button
+            id="yesButton"
+            onclick="goToBirthdayPage()">
+
+            Yes
+
+        </button>
+
+
+        <button
+            id="noButton"
+            onclick="moveNoButton()">
+
+            No
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =======================================================
+     PAGE 2
+======================================================= -->
+
+<div id="page2">
+
+
+    <!-- BALLOONS -->
+
+    <div id="balloonContainer"></div>
+
+
+    <!-- BIRTHDAY CONTENT -->
+
+    <div id="birthdayContent">
+
+
+        <!-- TOP HEADING -->
+
+        <div id="mainHeading">
+
+            Happy Birthday de pondati 😘🫂
+
+        </div>
+
+
+        <!-- CENTER MESSAGES -->
+
+        <div id="messages">
+
+
+            <div class="message">
+
+                Happy Birthday My Love
+
+            </div>
+
+
+            <div class="message">
+
+                Today is most beautiful day,
+                Because it's your Birthday.
+
+            </div>
+
+
+            <div class="message">
+
+                Wishing you happy returns of the day
+                always god bless you with good health
+                Happy Birthday Once Again
+
+            </div>
+
+
+            <div class="message last-message">
+
+                Happy Birthday de pondati 💕
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CAKE -->
+
+        <div id="cakeArea">
+
+
+            <div class="cake">
+
+
+                <div class="cake-bottom"></div>
+
+                <div class="cake-top"></div>
+
+                <div class="cream"></div>
+
+
+                <div class="candle candle1">
+
+                    <div class="flame"></div>
+
+                </div>
+
+
+                <div class="candle candle2">
+
+                    <div class="flame"></div>
+
+                </div>
+
+
+                <div class="candle candle3">
+
+                    <div class="flame"></div>
+
+                </div>
+
+
+            </div>
+
+
+            <div id="blowText">
+
+                Blow in
+
+            </div>
+
+
+            <div id="countdown">
+
+                5
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- FIREWORKS -->
+
+    <div id="fireworks"></div>
+
+</div>
+
+
+
+<!-- =======================================================
+     PAGE 3
+======================================================= -->
+
+<div id="page3">
+
+    <div id="page3Text">
+
+        ❤️
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   PAGE 1 — NO BUTTON
+========================================================= */
+
+const noButton =
+    document.getElementById("noButton");
+
+
+function moveNoButton() {
+
+    noButton.style.position = "fixed";
+
+
+    const buttonWidth =
+        noButton.offsetWidth;
+
+    const buttonHeight =
+        noButton.offsetHeight;
+
+
+    const padding = 15;
+
+
+    const maxX =
+        window.innerWidth -
+        buttonWidth -
+        padding;
+
+
+    const maxY =
+        window.innerHeight -
+        buttonHeight -
+        padding;
+
+
+    const randomX =
+        padding +
+        Math.random() *
+        Math.max(
+            0,
+            maxX - padding
+        );
+
+
+    const randomY =
+        padding +
+        Math.random() *
+        Math.max(
+            0,
+            maxY - padding
+        );
+
+
+    noButton.style.left =
+        randomX + "px";
+
+
+    noButton.style.top =
+        randomY + "px";
+}
+
+
+
+/* =========================================================
+   YES → PAGE 2
+========================================================= */
+
+function goToBirthdayPage() {
+
+    document
+        .getElementById("page1")
+        .style.display = "none";
+
+
+    const page2 =
+        document.getElementById("page2");
+
+
+    page2.style.display = "block";
+
+
+    startBirthdaySequence();
+}
+
+
+
+/* =========================================================
+   BALLOON COLOURS
+========================================================= */
+
+const balloonColors = [
+
+    "#ff5c8a",
+    "#ff7eb3",
+    "#ffb347",
+    "#ffd166",
+    "#7bdff2",
+    "#6a9cff",
+    "#b28dff",
+    "#7ed957",
+    "#ff6b6b",
+    "#f78fb3"
+
+];
+
+
+
+/* =========================================================
+   CREATE BALLOON
+========================================================= */
+
+function createBalloon(index) {
+
+    const balloon =
+        document.createElement("div");
+
+
+    balloon.className =
+        "balloon";
+
+
+    balloon.style.left =
+        (Math.random() * 94) + "%";
+
+
+    const color =
+        balloonColors[
+            index %
+            balloonColors.length
+        ];
+
+
+    balloon.style.background =
+        color;
+
+    balloon.style.color =
+        color;
+
+
+    const duration =
+        5.5 +
+        Math.random() * 2;
+
+
+    const delay =
+        Math.random() * 2;
+
+
+    balloon.style.setProperty(
+        "--duration",
+        duration + "s"
+    );
+
+
+    balloon.style.setProperty(
+        "--delay",
+        delay + "s"
+    );
+
+
+    const scale =
+        0.75 +
+        Math.random() * 0.5;
+
+
+    balloon.style.transform =
+        "scale(" + scale + ")";
+
+
+    document
+        .getElementById(
+            "balloonContainer"
+        )
+        .appendChild(balloon);
+}
+
+
+
+/* =========================================================
+   START BIRTHDAY SEQUENCE
+========================================================= */
+
+function startBirthdaySequence() {
+
+
+    /*
+     PAGE 2:
+
+     0–3 sec
+     Completely blank white.
+    */
+
+
+    /*
+     3 sec:
+     Start a very gentle transition
+     from white to baby pink.
+
+     The transition itself takes 3 seconds.
+    */
+
+    setTimeout(function() {
+
+        document
+            .getElementById("page2")
+            .style.backgroundColor =
+            "#f8d7e3";
+
+    }, 3000);
+
+
+
+    /*
+     6 sec:
+     Pink transition is complete.
+     Balloons begin rising.
+    */
+
+    setTimeout(function() {
+
+        for (
+            let i = 0;
+            i < 24;
+            i++
+        ) {
+
+            createBalloon(i);
+        }
+
+    }, 6000);
+
+
+
+    /*
+     Heading appears after balloons have
+     started rising.
+    */
+
+    setTimeout(function() {
+
+        const heading =
+            document.getElementById(
+                "mainHeading"
+            );
+
+
+        heading.style.opacity = "1";
+
+
+        heading.style.transform =
+            "translateX(-50%) " +
+            "translateY(0) " +
+            "scale(1)";
+
+    }, 7000);
+
+
+
+    /*
+     Messages start 2 seconds after heading.
+    */
+
+    const messages =
+        document.querySelectorAll(
+            ".message"
+        );
+
+
+    messages.forEach(
+        function(message, index) {
+
+            setTimeout(
+                function() {
+
+                    message.classList.add(
+                        "show"
+                    );
+
+                },
+
+                9000 +
+                (index * 2000)
+            );
+
+        }
+    );
+
+
+
+    /*
+     Last message appears at 15 seconds.
+     Cake appears 2 seconds later.
+    */
+
+    setTimeout(function() {
+
+        document
+            .getElementById("cakeArea")
+            .classList.add("show");
+
+
+        startCountdown();
+
+    }, 17000);
+
+}
+
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+function startCountdown() {
+
+    const countdown =
+        document.getElementById(
+            "countdown"
+        );
+
+
+    let number = 5;
+
+
+    countdown.textContent =
+        number;
+
+
+    const timer =
+        setInterval(function() {
+
+            number--;
+
+
+            countdown.textContent =
+                number;
+
+
+            if (number <= 0) {
+
+                clearInterval(timer);
+
+
+                /*
+                 * Fireworks begin immediately
+                 * when countdown reaches 0.
+                 */
+
+                setTimeout(
+                    launchFireworks,
+                    300
+                );
+            }
+
+        }, 1000);
+}
+
+
+
+/* =========================================================
+   FIREWORKS
+========================================================= */
+
+function launchFireworks() {
+
+    const fireworks =
+        document.getElementById(
+    
